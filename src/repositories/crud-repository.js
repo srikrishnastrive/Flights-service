@@ -1,5 +1,7 @@
 const { where } = require('sequelize');
 const {Logger} = require('../config');
+const AppError = require('../utils/Errors/app-error');
+const { StatusCodes } = require('http-status-codes');
 
 
 
@@ -9,53 +11,45 @@ class CrudRepository {
     }
 
     async create(data){
-        try {
-            const response = await this.model.create(data);
-            return response;
-        }
-        catch(error){
-            Logger.error('something went wrong in the Crud Repo: create');
-            throw error;
-        }
+        const response = await this.model.create(data);
+        return response;
     }
 
     async destroy(data){
-        try{
             const response = await this.model.destroy({
                 where : {
                     id: data
                 }
             });
+            if(!response){
+                throw new AppError("Not able to find the resource",StatusCodes.NOT_FOUND)
+            }
             return response
-        }
-        catch(error){
-            Logger.error('something went wrong in the Crud repo: destroy');
-            throw error;
-        }
     }
 
     async getAll(){
-        try{
-            const response = await this.model.findAll();
-            return response;
+        const response = await this.model.findAll();
+        if(!response){
+            throw new AppError("Not able to find the resource",StatusCodes.NOT_FOUND)
         }
-        catch(error){
-            Logger.error('something went wrong in the Crud repo: getAll');
-            throw error;
+        return response;
+        
+    }
+
+    async getByOne(id){
+        const response = await this.model.findByPk(id);
+        if(!response){
+            throw new AppError("Not able to find the resource",StatusCodes.NOT_FOUND)
         }
+        return response;
     }
 
     async update(id,data){
-        try{
-            const response = await this.model.update({data,where:{
+        const response = await this.model.update({data,where:{
                 id:id
-            }});
-            return response;
-        }
-        catch(error){
-            Logger.error('something went wrong in the Crud repo: update');
-            throw error;
-        }
+        }});
+        return response;
+       
     }
 }
 
