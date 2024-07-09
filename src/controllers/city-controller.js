@@ -1,21 +1,21 @@
 const { error } = require('winston');
-const {AirplaneService} = require('../services');
+const {CityService} = require('../services');
 const {StatusCodes} = require('http-status-codes');
 const {ErrorResponse,SuccessResponse} = require('../utils/common');
 
 
-async function createAirplane(req,res){
+async function createCity(req,res){
     try {
-        const airplane = await AirplaneService.createAirplane({
-            modelNumber:req.body.modelNumber,
-            capacity: req.body.capacity
+        const city = await CityService.createCity({
+            name:req.body.name,
+           
         });
-        // SuccessResponse.message = "Successfully create a airplane";
-        SuccessResponse.data = airplane;
+        // SuccessResponse.message = "Successfully create a city";
+        SuccessResponse.data = city;
         return res.status(StatusCodes.CREATED).json({SuccessResponse});
     }
     catch(error){
-        //ErrorResponse.message = 'Something went wrong while creating airplane';
+        //ErrorResponse.message = 'Something went wrong while creating city';
         //ErrorResponse.error = new AppError('Model Number not found in the onComing Req',StatusCodes.BAD_REQUEST);
         ErrorResponse.error = error;
         return  res.status(error.statusCode).json({ErrorResponse});
@@ -23,10 +23,10 @@ async function createAirplane(req,res){
 
 }
 
-async function getAirplanes(req,res){
+async function getCities(req,res){
     try{
-        const airplanes = await AirplaneService.getAirplanes();
-        SuccessResponse.data = airplanes;
+        const cities = await CityService.getCities();
+        SuccessResponse.data = cities;
         return res.status(StatusCodes.CREATED).json({SuccessResponse});
 
     }
@@ -36,10 +36,10 @@ async function getAirplanes(req,res){
     }
 }
 
-async function getAirplaneByOne(req,res){
+async function getcityByOne(req,res){
     try{
-        const airplane = await AirplaneService.getSingleAirplane(req.params.id);
-        SuccessResponse.data = airplane;
+        const city = await CityService.getSingleCity(req.params.id);
+        SuccessResponse.data = city;
         return res.status(StatusCodes.CREATED).json({SuccessResponse});
 
     }
@@ -49,10 +49,10 @@ async function getAirplaneByOne(req,res){
     }
 }
 
-async function deleteAirplane(req,res){
+async function deleteCity(req,res){
     try {
-        const deletedAirplane= await AirplaneService.deleteSinglePlane(req.params.id);
-        SuccessResponse.data = deletedAirplane;
+        const deletedcity= await CityService.deleteSingleCity(req.params.id);
+        SuccessResponse.data = deletedcity;
         return res.status(StatusCodes.OK).json({SuccessResponse});
     }
     catch(error){
@@ -64,10 +64,10 @@ async function deleteAirplane(req,res){
 
 
 
-async function updateAirplane(req, res) {
+async function updateCity(req, res) {
     try {
-        const updatedAirplane = await AirplaneService.updateAirplane(req.params.id, req.body);
-        SuccessResponse.data = updatedAirplane;
+        const updatedcity = await CityService.updateCity(req.params.id, req.body);
+        SuccessResponse.data = updatedcity;
         return res.status(StatusCodes.OK).json(SuccessResponse);
     } catch (error) {
         ErrorResponse.error = {
@@ -79,9 +79,9 @@ async function updateAirplane(req, res) {
 }
 
 module.exports = {
-    createAirplane,
-    getAirplanes,
-    getAirplaneByOne,
-    deleteAirplane,
-    updateAirplane
+    createCity,
+    getCities,
+    getcityByOne,
+    deleteCity,
+    updateCity
 }

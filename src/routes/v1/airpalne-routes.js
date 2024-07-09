@@ -9,5 +9,7 @@ airplaneRouter.post('/',AirplaneMiddleware.validateCreateRequest,AirplaneControl
 airplaneRouter.get('/',AirplaneController.getAirplanes);
 airplaneRouter.get('/:id',AirplaneController.getAirplaneByOne);
 airplaneRouter.delete('/:id',AirplaneController.deleteAirplane);
+// airplaneRouter.patch(':/id',AirplaneController.updateAirplane);
+airplaneRouter.patch('/:id', AirplaneController.updateAirplane);
 
 module.exports = airplaneRouter;
