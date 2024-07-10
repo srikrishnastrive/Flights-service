@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
        this.belongsTo(models.City,{
         foreignKey:'cityId',
-        onDelete :'CASCADE',
-        onUpdate :'CASCADE'
+        onDelete :'CASCADE'
        });
     }
   }
@@ -19,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       unique : true
     },
     code:{
-      tyoe: DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull : false,
       unique : true
     }, 
