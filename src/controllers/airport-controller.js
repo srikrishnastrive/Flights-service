@@ -15,7 +15,7 @@ async function createAirport(req,res){
         });
         // SuccessResponse.message = "Successfully create a airport";
         SuccessResponse.data = airport;
-        return res.status(StatusCodes.CREATED).json({SuccessResponse});
+        return res.status(StatusCodes.OK).json({SuccessResponse});
     }
     catch(error){
         //ErrorResponse.message = 'Something went wrong while creating airport';
