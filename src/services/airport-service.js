@@ -83,9 +83,9 @@ async function updateAirport(id, data) {
 }
 
 module.exports = {
-    createAirplane,
-    getAirplanes,
-    getSingleAirplane,
-    deleteSinglePlane,
-    updateAirplane
+    createAirport,
+    getAirports,
+    getSingleAirport,
+    deleteSingleAirport,
+    updateAirport
 }
