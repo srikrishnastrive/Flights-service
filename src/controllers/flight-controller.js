@@ -57,10 +57,42 @@ async function getAllFlights(req, res) {
     }
 }
 
+async function getAirplaneByOne(req,res){
+    try{
+        const flight = await FlightService.getSingleFlight(req.params.id);
+        SuccessResponse.data = flight;
+        return res.status(StatusCodes.OK).json({SuccessResponse});
+
+    }
+    catch(error){
+        ErrorResponse.error = error;
+        return  res.status(error.statusCode).json({ErrorResponse});
+    }
+}
+
+async function updateFlighSeats(req,res) {
+    try {
+        const updatedSeats  = await FlightService.updateSeats({
+            flightId :req.params.id,
+            seats : req.body.seats,
+            dec : req.body.dec
+
+        });
+        SuccessResponse.data = updatedSeats;
+        return res.status(StatusCodes.OK).json({SuccessResponse});
+
+    }
+    catch(error){
+        ErrorResponse.error = error;
+        return  res.status(error.statusCode).json({ErrorResponse});
+    }
+}
 
 
 
 module.exports = {
     createFlight,
     getAllFlights,
+    getAirplaneByOne,
+    updateFlighSeats
 }

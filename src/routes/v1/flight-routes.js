@@ -15,5 +15,15 @@ flightRouter.post('/',
 flightRouter.get('/', 
     FlightController.getAllFlights);
 
+// /api/v1/flights/1
+flightRouter.get('/:id', 
+    FlightController.getAirplaneByOne);    
+
+
+// /api/v1/flights/:id/seats   PATCH
+
+flightRouter.patch('/:id/seats',
+    FlightMiddleware.validateUpdateSeatsRequest,
+    FlightController.updateFlighSeats);    
 
 module.exports = flightRouter;
